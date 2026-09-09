@@ -16,3 +16,8 @@ export const selectOffersByCity = createSelector(
       },
     ),
 );
+
+export const selectCurrentCity = createSelector(
+  selectCityState,
+  state => state
+)
