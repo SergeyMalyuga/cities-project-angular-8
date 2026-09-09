@@ -7,7 +7,6 @@ import {HeaderComponent} from '../../shared/components/header/header.component';
     HeaderComponent
   ],
   templateUrl: './offer.component.html',
-  styleUrl: './offer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OfferComponent {
