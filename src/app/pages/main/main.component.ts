@@ -10,6 +10,7 @@ import {City} from '../../core/models/city';
 import {changeCity} from '../../store/city/actions/city.actions';
 import {PlacesSortingFormComponent} from '../../components/places-sorting-form/places-sorting-form.component';
 import {SortOfferByPipe} from './pipes/sort-offer-by.pipe';
+import {OfferPreview} from '../../core/models/offers';
 
 @Component({
   selector: 'app-main',
@@ -32,6 +33,7 @@ export class MainComponent {
   public offersTotal = computed(() => this.offers().length);
   public currentCity = this.store.selectSignal(selectCurrentCity);
   public currentSortType = signal<SortType>(SortType.POPULAR);
+  public activeCard = signal<OfferPreview | null>(null);
 
   public isActiveCity(city: City): boolean {
     return city.name === this.currentCity().name
@@ -43,5 +45,9 @@ export class MainComponent {
 
   public changeSortType(sortType: SortType): void {
     this.currentSortType.set(sortType);
+  }
+
+  public changeActiveCard(offer: OfferPreview | null): void {
+    this.activeCard.set(offer);
   }
 }

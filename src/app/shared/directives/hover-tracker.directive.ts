@@ -1,18 +1,23 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
+import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
 
 @Directive({
   selector: '[appHoverTracker]',
 })
 export class HoverTrackerDirective {
+  @Input() enable = false;
   @Output() hovered = new EventEmitter<boolean>();
 
   @HostListener('mouseenter')
   onMouseEnter() {
-    this.hovered.emit(true);
+    if (this.enable) {
+      this.hovered.emit(true);
+    }
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.hovered.emit(false);
+    if (this.enable) {
+      this.hovered.emit(false);
+    }
   }
 }

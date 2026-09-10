@@ -29,7 +29,7 @@
           <app-places-sorting-form [currentSortType]="currentSortType()" (clicked)="changeSortType($event)"/>
           <div class="cities__places-list places__list tabs__content">
             @for (offer of offers() | sortOfferBy: currentSortType(); track offer.id) {
-              <app-offer-card [offer]="offer"/>
+              <app-offer-card [offer]="offer" [isHoverEnable]="true" (hovered)="changeActiveCard($event)"/>
             }
           </div>
         </section>
