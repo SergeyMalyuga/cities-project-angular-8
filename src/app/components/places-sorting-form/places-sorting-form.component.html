@@ -1,0 +1,24 @@
+<form class="places__sorting" action="#" method="get">
+  <span class="places__sorting-caption">Sort by</span>
+  <span class="places__sorting-type" appToggle (toggled)="onToggled()" (closed)="closeOption()">
+                  Popular
+                  <svg class="places__sorting-arrow" width="7" height="4">
+                    <use xlink:href="#icon-arrow-select"></use>
+                  </svg>
+                </span>
+  <ul [ngClass]=" {
+  'places__options places__options--custom': true,
+  'places__options--opened': isOptionOpen()
+  }"
+      appHoverTracker (hovered)="onHovered($event)"
+  >
+    @for (type of sortType; track type) {
+      <li [ngClass]=" {
+      'places__option': true,
+      'places__option--active': currentSortType === type
+      }"
+          appAccessibilityClick (clicked)="onClicked(type)">{{ type }}
+      </li>
+    }
+  </ul>
+</form>
