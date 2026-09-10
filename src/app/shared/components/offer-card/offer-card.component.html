@@ -1,4 +1,4 @@
-<article class="cities__card place-card">
+<article class="cities__card place-card" appHoverTracker [enable]="isHoverEnable" (hovered)="onHovered($event)">
   @if (offer.isPremium) {
     <div class="place-card__mark">
       <span>Premium</span>
