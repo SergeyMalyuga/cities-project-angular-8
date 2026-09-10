@@ -11,6 +11,7 @@ import {changeCity} from '../../store/city/actions/city.actions';
 import {PlacesSortingFormComponent} from '../../components/places-sorting-form/places-sorting-form.component';
 import {SortOfferByPipe} from './pipes/sort-offer-by.pipe';
 import {OfferPreview} from '../../core/models/offers';
+import {MapComponent} from '../../shared/components/map/map.component';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +20,8 @@ import {OfferPreview} from '../../core/models/offers';
     OfferCardComponent,
     NgClass,
     PlacesSortingFormComponent,
-    SortOfferByPipe
+    SortOfferByPipe,
+    MapComponent
   ],
   templateUrl: './main.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
