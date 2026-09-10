@@ -7,6 +7,7 @@ import {OfferCardComponent} from '../../shared/components/offer-card/offer-card.
 import {CITY_LOCATIONS} from '../../core/constants/const';
 import {NgClass} from '@angular/common';
 import {City} from '../../core/models/city';
+import {changeCity} from '../../store/city/actions/city.actions';
 
 @Component({
   selector: 'app-main',
@@ -20,6 +21,7 @@ import {City} from '../../core/models/city';
 })
 export class MainComponent {
   private store = inject(Store<AppState>);
+
   protected readonly CITY_LOCATIONS = CITY_LOCATIONS;
 
   public offers = this.store.selectSignal(selectOffersByCity);
@@ -28,5 +30,9 @@ export class MainComponent {
 
   public isActiveCity(city: City): boolean {
     return city.name === this.currentCity().name
+  }
+
+  public changeCity(city: City): void {
+    this.store.dispatch(changeCity({city}));
   }
 }

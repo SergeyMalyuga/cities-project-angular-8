@@ -12,6 +12,7 @@
                  'locations__item-link': true,
                  'tabs__item tabs__item--active': isActiveCity(city)
                  }"
+                (click)="changeCity(city)"
                 href="#">
                 <span>{{ city.name }}</span>
               </a>
