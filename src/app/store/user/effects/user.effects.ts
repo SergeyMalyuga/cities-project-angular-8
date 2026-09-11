@@ -16,7 +16,13 @@ export class UserEffects {
 
   public checkAuth$ = createEffect(() =>
     this.actions$.pipe(ofType(UserActions.checkAuth),
-      switchMap(() => this.userService.checkAuth()
-        .pipe(map(user => UserActions.checkAuthSuccess({user})),
-          catchError((error: HttpErrorResponse) => of(UserActions.checkAuthFailure({error})))))));
+      switchMap(() => {
+        const token = this.authService.getToken();
+        if (token) {
+          return this.userService.checkAuth()
+            .pipe(map(user => UserActions.checkAuthSuccess({user})),
+              catchError((error: HttpErrorResponse) => of(UserActions.checkAuthFailure({error}))))
+        }
+        return of(UserActions.checkAuthFailure({error: 'Unauthorized'}));
+      })));
 }
