@@ -29,4 +29,9 @@ export class UserEffects {
 
   public authSuccessLoadFavoriteOffer$ = createEffect(() =>
     this.actions$.pipe(ofType(UserActions.checkAuthSuccess), map(() => loadFavoriteOffers())));
+
+  public login$ = createEffect(() => this.actions$.pipe(ofType(UserActions.login),
+    switchMap(({credentials}) => this.userService.login(credentials)
+      .pipe(map(user => UserActions.loginSuccess({user})),
+        catchError((error: HttpErrorResponse) => of(UserActions.loginFailure({error})))))));
 }
