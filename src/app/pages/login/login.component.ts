@@ -65,7 +65,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const {email, password} = this.loginForm.value;
       const credentials: Credentials = {email, password};
-      this.store.dispatch(login({credentials}))
+      this.store.dispatch(login({credentials}));
+      this.router.navigate([AppRoute.MAIN]);
     }
   }
 
