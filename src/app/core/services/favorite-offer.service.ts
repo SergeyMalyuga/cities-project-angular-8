@@ -12,7 +12,7 @@ export class FavoriteOfferService {
   private http = inject(HttpClient);
 
   public getOffers(): Observable<OfferPreview[]> {
-    return this.http.get<OfferPreview[]>(`${BASE_URL},${APIRoute.FAVORITE}`).pipe(...getHttpDefaultPipes<OfferPreview[]>());
+    return this.http.get<OfferPreview[]>(`${BASE_URL}/${APIRoute.FAVORITE}`).pipe(...getHttpDefaultPipes<OfferPreview[]>());
   }
 
   public toggleFavorite(offerId: string, isFavorite: boolean): Observable<Offer> {
