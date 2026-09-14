@@ -1,14 +1,21 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output, signal} from '@angular/core';
 import {OfferPreview} from '../../../core/models/offers';
 import {getWidthByRating} from '../../../core/utils/width-by-rating';
-import {TitleCasePipe} from '@angular/common';
+import {NgClass, TitleCasePipe} from '@angular/common';
 import {HoverTrackerDirective} from '../../directives/hover-tracker.directive';
+import {OfferService} from '../../../core/services/offer.service';
+import {first, tap} from 'rxjs';
+import {isAuth} from '../../../core/utils/auth-status';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../core/models/app.state';
+import {selectAuthStatus} from '../../../store/user/selectors/user.selector';
 
 @Component({
   selector: 'app-offer-card',
   imports: [
     TitleCasePipe,
-    HoverTrackerDirective
+    HoverTrackerDirective,
+    NgClass
   ],
   templateUrl: './offer-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -16,10 +23,16 @@ import {HoverTrackerDirective} from '../../directives/hover-tracker.directive';
 export class OfferCardComponent {
   @Input({required: true}) offer!: OfferPreview;
   @Input() isHoverEnable = false;
-
   @Output() hovered = new EventEmitter<OfferPreview | null>();
 
+  private store = inject(Store<AppState>);
+  private offerService = inject(OfferService);
+
   protected readonly getWidthByRating = getWidthByRating;
+  protected readonly isAuth = isAuth;
+
+  public isLoading = signal<boolean>(false);
+  public authStatus = this.store.selectSignal(selectAuthStatus);
 
   public onHovered(isHover: boolean) {
     if (isHover) {
@@ -27,5 +40,13 @@ export class OfferCardComponent {
     } else {
       this.hovered.emit(null);
     }
+  }
+
+  public toggleFavorite() {
+    this.isLoading.set(true);
+    this.offerService.toggleFavorite(this.offer.id, this.offer.isFavorite).pipe(
+      first(success => success !== null),
+      tap(() => this.isLoading.set(false)))
+      .subscribe();
   }
 }
