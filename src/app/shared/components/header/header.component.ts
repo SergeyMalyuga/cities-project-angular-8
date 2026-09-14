@@ -6,6 +6,7 @@ import {isAuth} from '../../../core/utils/auth-status';
 import {RouterLink} from '@angular/router';
 import {AppRoute} from '../../../core/constants/const';
 import {selectFavoriteOffersTotal} from '../../../store/favoritre-offer/selectors/favorite-offer.selectors';
+import {logout} from '../../../store/user/actions/user.actions';
 
 @Component({
   selector: 'app-header',
@@ -24,4 +25,10 @@ export class HeaderComponent {
   public offersTotal = this.store.selectSignal(selectFavoriteOffersTotal);
   public authStatus = this.store.selectSignal(selectAuthStatus);
   public email = this.store.selectSignal(selectUserEmail);
+
+  public logout() {
+    if (this.isAuth(this.authStatus())) {
+      this.store.dispatch(logout());
+    }
+  }
 }
