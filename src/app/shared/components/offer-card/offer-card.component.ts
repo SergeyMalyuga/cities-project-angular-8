@@ -9,13 +9,16 @@ import {isAuth} from '../../../core/utils/auth-status';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../core/models/app.state';
 import {selectAuthStatus} from '../../../store/user/selectors/user.selector';
+import {RouterLink} from '@angular/router';
+import {AppRoute} from '../../../core/constants/const';
 
 @Component({
   selector: 'app-offer-card',
   imports: [
     TitleCasePipe,
     HoverTrackerDirective,
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './offer-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -49,4 +52,6 @@ export class OfferCardComponent {
       tap(() => this.isLoading.set(false)))
       .subscribe();
   }
+
+  protected readonly AppRoute = AppRoute;
 }
