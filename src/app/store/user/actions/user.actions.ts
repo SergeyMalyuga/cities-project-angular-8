@@ -15,3 +15,7 @@ export const loginSuccess = createAction('[Login Component] Login Success',
   props<{ user: User }>());
 export const loginFailure = createAction('[Login Component] Login Failure',
   props<{ error: HttpErrorResponse }>());
+
+export const logout = createAction('[Header Component] Logout');
+export const logoutSuccess = createAction('[Header Component] Logout Success');
+export const logoutFailure = createAction('[Header Component] Logout Failure', props<{ error: HttpErrorResponse }>());
