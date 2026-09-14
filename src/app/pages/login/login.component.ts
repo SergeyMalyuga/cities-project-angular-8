@@ -6,15 +6,17 @@ import {AppState} from '../../core/models/app.state';
 import {login} from '../../store/user/actions/user.actions';
 import {selectAuthStatus} from '../../store/user/selectors/user.selector';
 import {first} from 'rxjs';
-import {AuthorizationStatus} from '../../core/constants/const';
+import {AppRoute, AuthorizationStatus} from '../../core/constants/const';
 import {loadOffers} from '../../store/offer/actions/offer.actions';
 import {loadFavoriteOffers} from '../../store/favoritre-offer/actions/favorite-offer.actions';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -60,4 +62,6 @@ export class LoginComponent implements OnInit {
       this.store.dispatch(login({credentials}))
     }
   }
+
+  protected readonly AppRoute = AppRoute;
 }
